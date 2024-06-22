@@ -24,10 +24,9 @@ import {
   getMedicalRecordSummary,
   getMedicalRecordSummaryStatus,
 } from "../../command/medical/patient/create-medical-record";
-import { PatientCreateCmd, createPatient } from "../../command/medical/patient/create-patient";
+import { createPatient, PatientCreateCmd } from "../../command/medical/patient/create-patient";
 import { deletePatient } from "../../command/medical/patient/delete-patient";
 import {
-  PatientMatchCmd,
   getPatientOrFail,
   getPatients,
   matchPatient,
@@ -484,7 +483,7 @@ router.post(
     const cxId = getCxIdOrFail(req);
     const payload = demographicsSchema.parse(req.body);
 
-    const patientMatch: PatientMatchCmd = schemaDemographicsToPatient(payload, cxId);
+    const patientMatch = schemaDemographicsToPatient(payload, cxId);
 
     const patient = await matchPatient(patientMatch);
 
